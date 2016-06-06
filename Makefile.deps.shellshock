@@ -1,0 +1,10 @@
+deps/shellshock.tgz: 
+	mkdir -p deps && chmod a+w deps
+	docker run --rm -v "$(CURRENT_DIR)/deps":/home/bob/deps "$(DOCKER_BUILD_IMAGE)" /bin/bash -c "\
+		wget https://ftp.gnu.org/gnu/bash/bash-4.3.tar.gz && \
+		tar zxvf bash-4.3.tar.gz && \
+		cd bash-4.3 && \
+		./configure --prefix=/ && \
+		make && \
+		tar zcvf /home/bob/deps/shellshock.tgz bash \
+		"

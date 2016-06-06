@@ -1,0 +1,16 @@
+deps/imagetragick.tgz: 
+	mkdir -p deps && chmod a+w deps
+	docker run --rm -v "$(CURRENT_DIR)/deps":/home/bob/deps "$(DOCKER_BUILD_IMAGE)" /bin/bash -c "\
+		apt-get -y update && \
+		apt-get -y install libghc-bzlib-dev libfontconfig1-dev libfreetype6-dev ghostscript libjbig-dev libjpeg-dev libpng12-dev libtiff5-dev libwebp-dev libwmf-dev libxml2-dev fftw-dev libopenjp2-7-dev libopenexr-dev libpango1.0-dev librsvg2-dev liblzma-dev libltdl-dev liblqr-1-0-dev liblcms2-dev && \
+		mkdir -p /home/bob/local && \
+		cd /home/bob/src && \
+		git clone http://git.imagemagick.org/repos/ImageMagick.git && \
+		cd /home/bob/src/ImageMagick && \
+		git checkout 87cd29e58f0a4ec44a6e290149029a276741d387 && \
+		./configure --prefix /usr/local && \
+		make && \
+		make install && \
+		cd /usr/local && \
+		tar zcvf /home/bob/deps/imagetragick.tgz . \
+		"
