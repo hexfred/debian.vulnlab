@@ -1,1 +1,1 @@
-A debian docker image to test the docker vulnerability scanners
+A debian docker image to test the docker image vulnerability scanners
